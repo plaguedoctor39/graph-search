@@ -38,3 +38,16 @@ all_cliques_with_weights = all_cliques_with_weights + Parallel(n_jobs=-1, timeou
 <p> Если сравнивать networkx и graph_tool, нельзя не подметить удобство и обширность методов и готовых алгоритмов реализованных в networkx, что делает работу с этой библиотекой значительно проще. Что говоря о времени выполнения, то на данной задаче разницы во времени выполнения между networkx и graph_tool, если брать создание и заполнение графа, выявленно не было.
 В остальном же с использованием методов networkx, которые отствуют в graph_tool, код с networkx выполнялся быстрее. </p>
 
+## LP solvers benchmark
+n = 30
+
+| Library | Solver       | Time     |
+|---------|--------------|----------|
+| pulp  | PULP_CBC_CMD | ~8 sec   |
+|  pulp | COIN_CMD     | ~12 sec  |
+| pulp  | GLPK_CMD     | ~18 sec  |
+| ortools  | SAT          | ~1.5 sec |
+| ortools  | CP-SAT       | ~1.5 sec |
+| ortools  | SCIP         | ~7 sec   |
+| ortools  | CBC          | ~17 sec  |
+
