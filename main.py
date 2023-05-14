@@ -18,3 +18,4 @@ if __name__ == '__main__':
     allBins = runShipsAllocation(g, maxK + 1, shipsQ, _df)
     # allBins = allBins.reset_index()
     print(allBins)
+    # print(help(runShipsAllocation))
