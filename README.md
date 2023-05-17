@@ -43,11 +43,11 @@ n = 30
 
 | Library | Solver       | Time     |
 |---------|--------------|----------|
-| pulp  | PULP_CBC_CMD | ~8 sec   |
-|  pulp | COIN_CMD     | ~12 sec  |
-| pulp  | GLPK_CMD     | ~18 sec  |
-| ortools  | SAT          | ~1.5 sec |
-| ortools  | CP-SAT       | ~1.5 sec |
-| ortools  | SCIP         | ~7 sec   |
-| ortools  | CBC          | ~17 sec  |
+| pulp    | PULP_CBC_CMD | ~8 sec   |
+| pulp    | COIN_CMD     | ~12 sec  |
+| pulp    | GLPK_CMD     | ~18 sec  |
+| ortools | SAT          | ~1.5 sec |
+| ortools | CP-SAT       | ~1.5 sec |
+| ortools | SCIP         | ~7 sec   |
+| ortools | CBC          | ~17 sec  |
 
