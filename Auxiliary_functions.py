@@ -25,7 +25,7 @@ def calcCross(b1, e1, b2, e2):
             b2 : 2nd interval begin timestamp
             e2 : 2nd interval end timestamp
         return
-            _dur : result as pandas.imedalte
+            _dur : result as pandas.timedalte
     '''
     i1 = pd.Interval(b1, e1)
     i2 = pd.Interval(b2, e2)
