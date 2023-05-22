@@ -26,10 +26,10 @@
 
 
 ## Функции 
-* Построение графа - graph_structure.py
+* Построение графа - [graph_structure.py](https://github.com/plaguedoctor39/graph-search/blob/main/func/graph_structure.py)
   * graphPreparation - создание графа
   * DrawGraph - отрисовка графа
-* Вспомогательные функции для вычислений - Auxiliary_functions.py
+* Вспомогательные функции для вычислений - [Auxiliary_functions.py](https://github.com/plaguedoctor39/graph-search/blob/main/func/Auxiliary_functions.py)
   * ReadSource - чтение эксель-датафрейма
   * calcCross - нахождение временного интервала между двумя вершинами
   * calcRowOverlap - преображение двух временных интервалов в часы
@@ -38,7 +38,7 @@
   * CalcFitness - преобразование списка вершин в список элементов для датафрейма
   * FormatResult - с использованием CalcFitness преобразование в результирующий датафрейм
   * do_process - функция для использования параллельности
-* Поиск лучших групп(клик) - search.py
+* Поиск лучших групп(клик) - [search.py](https://github.com/plaguedoctor39/graph-search/blob/main/func/search.py)
   * findCliquesSizeK - нахождение клик размера k
   * process - функция для параллельности
   * runShipsAllocation - нахождение клик, их отбор и получение лучших
@@ -51,9 +51,10 @@
 Была попробована библиотека graph_tool, в ходе написания было выясненно, что в graph_tool отсутствуют многие методы упрощающие работу с графами. 
 Так например поиск сообществ клик. Также разницы в скорости выполнения не было. Оказалось, долгое выполнение кода следствие использования питоновских циклов и pandas для работы с большим объемом данных. </p>
 
-<p> Первым делом была добавленна параллельность (joblib.Parallel) для обработки каждой клики. Это сократило время выполнения с ~27 минут до 8 минут. 
-Функция prepare_clique.
-</p>
+<p> Первым делом была добавленна параллельность (joblib.Parallel) для обработки каждой клики. Это сократило время выполнения с ~27 минут до 8 минут. </p>
+
+Функция [prepare_clique](https://github.com/plaguedoctor39/graph-search/blob/ae08a00a8373da8b163811c4ba8370ccdd448495/func/search.py#LL70C44-L70C44).
+
 
 ```
 all_cliques_with_weights = all_cliques_with_weights + Parallel(n_jobs=-1, timeout=99999)(delayed(process_clique_nx)(clique, g) for clique in reversed(k_cliques)) 
