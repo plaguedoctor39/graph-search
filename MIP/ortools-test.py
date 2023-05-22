@@ -75,7 +75,7 @@ while len(nodes) > 0:
 end = time.time()
 print('\nThe program took {:.2f} s to compute.'.format(end - start))
 for i in range(len(all_groups)):
-    print(f'group - {all_groups[i]} | weight - {all_weights[i]}')
+    print(f'group {i+1} - {all_groups[i]} | weight - {all_weights[i]}')
 # print('All groups:', all_groups)
 # print('All weights:', all_weights)
 
