@@ -138,7 +138,7 @@ NULL& NULL& NULL &... &NULL &c_{NN}\\
 $$\begin{vmatrix}
 NULL& x_{01} & x_{02} & ...  & ...&x_{0N}\\
 NULL& NULL & x_{12} & ...  & ... &x_{1N}\\
-NULL& NULL& NULL & x_{23} & ...&x_{2N}\\
+NULL& NULL& NULL & x_{2_3} & ...&x_{2N}\\
 ...& ... & ... & ... & ... & ... \\
 NULL& NULL& ...&x_{ij} &... &x_{iN}\\
 ...& ... & ... & ... & ... & ... \\
