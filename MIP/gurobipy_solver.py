@@ -28,7 +28,7 @@ def merge_lists(lists):
 start = time.time()
 maxC = 4
 n_rows = 30
-df = ReadSource(n_rows, '../data/shipsData200.xlsx')
+df = ReadSource(n_rows, 'data/shipsData200.xlsx')
 shipsQ = len(df)
 N = shipsQ
 E = {(i[0] - 1, i[1] - 1): calcRowOverlap(i[0], i[1], df) for i in getAprovePairs(df.index)}
