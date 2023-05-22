@@ -1,10 +1,8 @@
-from Auxiliary_functions import *
-from graph_structure import *
-from search import *
+from func.search import *
 
 if __name__ == '__main__':
     _nrows = 80
-    _df = ReadSource(_nrows, 'data/shipsData200.xlsx')
+    _df = ReadSource(_nrows, '../data/shipsData200.xlsx')
 
     print(_df.head())
     # print(len(_df))

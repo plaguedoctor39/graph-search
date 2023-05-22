@@ -1,8 +1,7 @@
 ## Create graph structure
 
 import networkx as nx
-import matplotlib.pyplot as plt
-from Auxiliary_functions import *
+from func.Auxiliary_functions import *
 
 WEIGHT_THRESHOLD = -1  # Edge will remove if weight  is less than threshold
 EDGE_W_COL = 'weight'  # Name of edge weight property

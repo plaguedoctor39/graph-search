@@ -1,10 +1,8 @@
-## Interpretation as a MIP problem
-from Auxiliary_functions import *
+from docplex.mp.model import Model
+from func.Auxiliary_functions import *
 import time
 import re
-
-from xpress import *
-
+# import cplex
 
 
 def merge_lists(lists):
@@ -31,49 +29,47 @@ def merge_lists(lists):
 start = time.time()
 maxC = 4
 n_rows = 30
-df = ReadSource(n_rows, 'data/shipsData200.xlsx')
+df = ReadSource(n_rows, '../data/shipsData200.xlsx')
 shipsQ = len(df)
 N = shipsQ
 E = {(i[0] - 1, i[1] - 1): calcRowOverlap(i[0], i[1], df) for i in getAprovePairs(df.index)}
-for k,v in E.items():
+for k, v in E.items():
     if v == 0.0:
         E[k] = 0.1
 
-# print(E)
-
-## initialize Xpress
-xpress = XPRESS()
-
-m = Model("GroupingProblem")
+m = Model(name="GroupingProblem")
 ## variables
-x = {(e[0], e[1]): m.addVar(vtype=XB, name=f"x({e[0]},{e[1]})") for e in list(E)}
+x = {(e[0], e[1]): m.binary_var(f"x({e[0]},{e[1]})") for e in list(E)}
 ## objective function
-objs = {0: m.setObjective(sum(x[j[0][0], j[0][1]] * j[1] for i, j in enumerate(E.items())), sense=MAXIMIZE)}
+objs = {0: m.sum(x[j[0][0], j[0][1]] * j[1] for i, j in enumerate(E.items()))}
 ## constraints :  group size
 cons = {
-    0: {i: m.addCons(sum(x[(k, i)] for k in range(i - 1, -1, -1)) + sum(x[(i, j)] for j in range(i + 1, N))) <= maxC
+    0: {i: (m.sum(x[(k, i)] for k in range(i - 1, -1, -1)) + m.sum(x[(i, j)] for j in range(i + 1, N))) <= maxC
         for i in range(0, N)}
+
+    ## constraints: check for clique:
+    , 1: {j: (x[j[0]] + x[j[1]] <= x[(j[0][1], j[1][1])] + 1) for i in range(N - 2) for j in
+          it.combinations(it.product(range(i, i + 1), range(i + 1, N)), 2)}
 }
 
-## constraints: check for clique:
-for i in range(N - 2):
-    for j in it.combinations(it.product(range(i, i + 1), range(i + 1, N)), 2):
-        m.addCons(x[j[0]] + x[j[1]] <= x[(j[0][1], j[1][1])] + 1)
+m.print_information()
+## add to model
+m.maximize(objs[0])
+for keys1 in cons:
+    for keys2 in cons[keys1]:
+        m.add_constraint(cons[keys1][keys2])
 
-print(xpress.getSolverName())
+print("Model --- \n", m.export_to_string())
 
-## optimize the model
-m.solve()
-
-## print the results
-print("Status --- \n", m.getStatus())
-if m.getStatus() == 'optimal':
-    print("Objective --- \n", m.getObjVal())
+result = m.solve(log_output=True)
+print("Status --- \n", m.solve_details.status)
+if m.solve_details.status == 'optimal':
+    print("Objective --- \n", m.objective_value)
     print("Decision --- \n",
-          [(variables.name, variables.getSol()) for variables in m.getVariables() if variables.getSol() != 0])
+          [(variables.name, variables.solution_value) for variables in m.iter_variables() if variables.solution_value != 0])
     edges = []
-    for variables in m.getVariables():
-        if variables.getSol() != 0:
+    for variables in m.iter_variables():
+        if variables.solution_value != 0:
             edge = re.findall('[0-9]+', variables.name)
             edge = list(map(int, edge))
             edge = [x + 1 for x in edge]

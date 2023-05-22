@@ -1,5 +1,5 @@
 from ortools.linear_solver import pywraplp
-from Auxiliary_functions import *
+from func.Auxiliary_functions import *
 from itertools import combinations
 import time
 # import multiprocessing
@@ -8,7 +8,7 @@ import time
 
 # start = time.time()
 n_rows = 30
-df = ReadSource(n_rows, 'data/shipsData200.xlsx')
+df = ReadSource(n_rows, '../data/shipsData200.xlsx')
 ships = [[[i[0], i[1]], calcRowOverlap(i[0], i[1], df)] for i in getAprovePairs(df.index)]
 
 start = time.time()

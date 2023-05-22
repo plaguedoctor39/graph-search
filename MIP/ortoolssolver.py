@@ -1,10 +1,9 @@
 ##
 ## Interpretation as a MIP problem
-from Auxiliary_functions import *
+from func.Auxiliary_functions import *
 import time
 import re
 import pulp as lp
-import os
 
 print(lp.listSolvers(onlyAvailable=True))
 # def merge_lists(lists):
@@ -47,7 +46,7 @@ def merge_lists(lists):
 start = time.time()
 maxC = 4
 n_rows = 30
-df = ReadSource(n_rows, 'data/shipsData200.xlsx')
+df = ReadSource(n_rows, '../data/shipsData200.xlsx')
 shipsQ = len(df)
 N = shipsQ
 E = {(i[0] - 1, i[1] - 1): calcRowOverlap(i[0], i[1], df) for i in getAprovePairs(df.index)}
@@ -104,7 +103,6 @@ for k,v in E.items():
 
 import itertools as it
 from ortools.linear_solver import pywraplp
-from ortools.sat.python import cp_model
 
 ispmodel = "y"
 solve = "y"

@@ -1,7 +1,10 @@
-from gurobipy import *
-from Auxiliary_functions import *
+## Interpretation as a MIP problem
+from func.Auxiliary_functions import *
 import time
 import re
+
+from xpress import *
+
 
 
 def merge_lists(lists):
@@ -28,51 +31,50 @@ def merge_lists(lists):
 start = time.time()
 maxC = 4
 n_rows = 30
-df = ReadSource(n_rows, 'data/shipsData200.xlsx')
+df = ReadSource(n_rows, '../data/shipsData200.xlsx')
 shipsQ = len(df)
 N = shipsQ
 E = {(i[0] - 1, i[1] - 1): calcRowOverlap(i[0], i[1], df) for i in getAprovePairs(df.index)}
-for k, v in E.items():
+for k,v in E.items():
     if v == 0.0:
         E[k] = 0.1
 
-# Create a new Gurobi model instance
+# print(E)
+
+## initialize Xpress
+xpress = XPRESS()
+
 m = Model("GroupingProblem")
+## variables
+x = {(e[0], e[1]): m.addVar(vtype=XB, name=f"x({e[0]},{e[1]})") for e in list(E)}
+## objective function
+objs = {0: m.setObjective(sum(x[j[0][0], j[0][1]] * j[1] for i, j in enumerate(E.items())), sense=MAXIMIZE)}
+## constraints :  group size
+cons = {
+    0: {i: m.addCons(sum(x[(k, i)] for k in range(i - 1, -1, -1)) + sum(x[(i, j)] for j in range(i + 1, N))) <= maxC
+        for i in range(0, N)}
+}
 
-# Create variables
-x = {(i, j): m.addVar(lb=0, ub=1, vtype=GRB.BINARY, name=f'x({i},{j})') for i, j in E}
-
-# Set objective function
-obj = quicksum(E[i, j] * x[i, j] for i, j in E)
-
-# Add constraints
-for i in range(N):
-    m.addConstr(quicksum(x[k, i] for k in range(i)) + quicksum(x[i, j] for j in range(i + 1, N)) <= maxC, f"eq0_{i}")
-
+## constraints: check for clique:
 for i in range(N - 2):
     for j in it.combinations(it.product(range(i, i + 1), range(i + 1, N)), 2):
-        m.addConstr(x[j[0]] + x[j[1]] <= x[(j[0][1], j[1][1])] + 1, f"eq1_{j}")
+        m.addCons(x[j[0]] + x[j[1]] <= x[(j[0][1], j[1][1])] + 1)
 
-# Set objective sense
-m.modelSense = GRB.MAXIMIZE
+print(xpress.getSolverName())
 
-# Set time limit
-m.setParam(GRB.Param.TimeLimit, 100)
+## optimize the model
+m.solve()
 
-# Optimize model
-m.optimize()
-
-# Print solution
-if m.status == GRB.OPTIMAL:
-    print(f"Optimal objective value: {m.objVal}")
-    print("Decision --- \n")
-    for v in m.getVars():
-        if v.x != 0:
-            print(f"{v.varName}: {v.x}")
+## print the results
+print("Status --- \n", m.getStatus())
+if m.getStatus() == 'optimal':
+    print("Objective --- \n", m.getObjVal())
+    print("Decision --- \n",
+          [(variables.name, variables.getSol()) for variables in m.getVariables() if variables.getSol() != 0])
     edges = []
-    for v in m.getVars():
-        if v.x != 0:
-            edge = re.findall('[0-9]+', v.varName)
+    for variables in m.getVariables():
+        if variables.getSol() != 0:
+            edge = re.findall('[0-9]+', variables.name)
             edge = list(map(int, edge))
             edge = [x + 1 for x in edge]
             edges.append(edge)
@@ -82,7 +84,6 @@ if m.status == GRB.OPTIMAL:
     print('Cliques --- \n')
     for clique in cliques:
         print(clique)
-# m.write('m.lp')
 
 end = time.time()
 print('\nThe program took {:.2f} s to compute.'.format(end - start))

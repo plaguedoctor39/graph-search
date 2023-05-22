@@ -1,10 +1,8 @@
 ## Faster way for searching  ships allocation
 
 ## -------------------------------------------------------------------------------------------------------------------------------------------------
-from joblib import Parallel, delayed
 from networkx.algorithms.community import k_clique_communities
-from Auxiliary_functions import *
-from graph_structure import *
+from func.graph_structure import *
 
 
 ## -------------------------------------------------------------------------------------------------------------------------------------------------
