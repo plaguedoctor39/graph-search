@@ -2,10 +2,9 @@ from func.search import *
 
 if __name__ == '__main__':
     _nrows = 80
-    _df = ReadSource(_nrows, '../data/shipsData200.xlsx')
+    _df = ReadSource(_nrows, 'data/shipsData200.xlsx')
 
     print(_df.head())
-    # print(len(_df))
 
     shipsQ = len(_df)
 
@@ -14,6 +13,4 @@ if __name__ == '__main__':
     DrawGraph(g)
     maxK = 5
     allBins = runShipsAllocation(g, maxK + 1, shipsQ, _df)
-    # allBins = allBins.reset_index()
     print(allBins)
-    # print(help(runShipsAllocation))
