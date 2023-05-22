@@ -135,6 +135,7 @@ NULL& NULL& NULL &... &NULL &c_{NN}\\
 \end{vmatrix}$$
 
 , задающая силу связи между всеми парами объектов. Тогда $X$ :
+
 $$\begin{vmatrix}
 NULL& x_{01} & x_{02} & ...  & ...&x_{0N}\\
 NULL& NULL & x_{12} & ...  & ... &x_{1N}\\
