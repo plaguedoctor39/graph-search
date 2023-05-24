@@ -86,7 +86,7 @@ def prepare_clique(all_cliques, shipsQ, g):
         end = time.time()
         print('\nThe loop took {:.2f} s to compute. Cliques list len is {}.'.format(end - start, len(k_cliques)))
     all_cliques_with_weights.sort(reverse=True, key=lambda x: x[1])
-    best_cliques = choosingBestBins_numpy(all_cliques_with_weights, shipsQ)
+    best_cliques = choosingBestBins(all_cliques_with_weights, shipsQ)
     return best_cliques
 
 
@@ -110,7 +110,7 @@ def process_clique_nx(clique, g):
 ## -------------------------------------------------------------------------------------------------------------------------------------------------
 ## Choosing the best bins
 
-def choosingBestBins_numpy(arr, _shipsQ):
+def choosingBestBins(arr, _shipsQ):
     '''
     Get the subset of best cliques :
         input:
