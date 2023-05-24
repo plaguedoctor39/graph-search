@@ -1,4 +1,4 @@
-from func.search import *
+from graph.search import *
 
 if __name__ == '__main__':
     _nrows = 80
