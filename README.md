@@ -8,11 +8,11 @@
 
 ## Подходы к  решению
 
-* [Методы вычисления на графах]()
-* [Методы целочисленного программирования (MIP)]()
+* [Методы вычисления на графах](https://github.com/plaguedoctor39/graph-search/tree/c7a0e2a7259ef6ef9a6bb69fba16a389ca16f0e7/graph)
+* [Методы целочисленного программирования (MIP)](https://github.com/plaguedoctor39/graph-search/tree/c7a0e2a7259ef6ef9a6bb69fba16a389ca16f0e7/MIP)
 
 ## Оптмизация производительности
 
-[Заметки сделанные в ходе решения]()
+[Заметки сделанные в ходе решения](https://github.com/plaguedoctor39/graph-search/tree/c7a0e2a7259ef6ef9a6bb69fba16a389ca16f0e7/notes)
 
 
