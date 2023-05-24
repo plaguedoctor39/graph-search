@@ -7,7 +7,7 @@ import time
 # print(multiprocessing.cpu_count())
 
 # start = time.time()
-n_rows = 30
+n_rows = 10
 df = ReadSource(n_rows, 'data/shipsData200.xlsx')
 ships = [[[i[0], i[1]], calcRowOverlap(i[0], i[1], df)] for i in getAprovePairs(df.index)]
 
