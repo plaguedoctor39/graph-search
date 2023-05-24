@@ -10,6 +10,7 @@
 
 * [Методы вычисления на графах](https://github.com/plaguedoctor39/graph-search/tree/c7a0e2a7259ef6ef9a6bb69fba16a389ca16f0e7/graph)
 * [Методы целочисленного программирования (MIP)](https://github.com/plaguedoctor39/graph-search/tree/c7a0e2a7259ef6ef9a6bb69fba16a389ca16f0e7/MIP)
+* [Иттерационные методы целочисленного программирования](https://github.com/plaguedoctor39/grouping-pairs-of-objects/tree/3f7672502f5b1142c1cb5d372b2f9a7fff5c7807/MIP-itter)
 
 ## Оптмизация производительности
 
