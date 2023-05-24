@@ -7,7 +7,7 @@
 
 Т.о. определение порога [WEIGHT_THRESHOLD](https://github.com/plaguedoctor39/graph-search/blob/c7a0e2a7259ef6ef9a6bb69fba16a389ca16f0e7/graph/graph_structure.py#L6) имеет коллосальное значение для ограничения временной сложности поиска решения.
 Крайне желательно избегать случаев сильносвязных и тем более полносвязных графов. 
-Для наглядности временные оценки даны в разделе [Graph approach benchmark](##Graph approach benchmark)
+Для наглядности временные оценки даны в разделе [Graph approach benchmark](##graph-approach-benchmark)
 
 ### Алгоритм (дорабоатть словами)
 * Инициализация графа      
