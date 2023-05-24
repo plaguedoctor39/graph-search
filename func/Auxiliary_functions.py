@@ -84,7 +84,7 @@ def CalcFitness(_G, _clique):
     '''
     _edgeWeights = [0]
     _limitEdge = 0
-    print(_clique)
+    # print(_clique)
     _edges = list(_G.subgraph(_clique).edges(data=True))
     _edges.sort(reverse=False, key=lambda x: x[2]['weight'])
     if len(_clique) > 1:
