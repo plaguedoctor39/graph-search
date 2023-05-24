@@ -2,15 +2,15 @@ absl-py==1.4.0
 cffi==1.15.1
 contourpy==1.0.7
 cycler==0.11.0
-docplex==2.25.236
+# docplex==2.25.236
 et-xmlfile==1.1.0
 fonttools==4.39.3
-gurobipy==10.0.1
+# gurobipy==10.0.1
 importlib-resources==5.12.0
 joblib==1.2.0
 kiwisolver==1.4.4
 matplotlib==3.7.1
-mip==1.15.0
+# mip==1.15.0
 networkx==3.1
 numpy==1.24.2
 openpyxl==3.1.2
