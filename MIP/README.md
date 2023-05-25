@@ -42,20 +42,25 @@ $$\sum_{i=0}^{N}\sum_{j=i}^{N} x_{ij}*c_{ij} \rightarrow max$$
 
 ### Алгоритм
 Пояснить какие алгоритмы применялись в библиотеках: Симплексы. барьерный метод (эллипсойды, методы внутренней точки), метод ветвей и границ
-* PULP_CBC_CMD - precompiled version of cbc provided with the package
-* COIN_CMD - The COIN CLP/CBC LP solver now only uses cbc
-* GLPK_CMD - GLPK LP solver
-* CP-SAT - solver uses an algorithm that's built on principles of both Constraint Programming (CP) and Boolean Satisfiability (SAT)
-* SCIP - branch-and-bound algorithm and dual simplex algorithm
+* PULP_CBC_CMD - primarily uses the Simplex algorithm for LP problems and the branch-and-cut method for MIP problems.
+* COIN_CMD - Simplex Algorithm, Barrier method, branch-and-cut
+* GLPK_CMD - Simplex Algorithm, Barrier method, branch-and-cut
+* CP-SAT - uses is the Conflict-Driven Clause Learning (CDCL) algorithm, which is a type of SAT solving algorithm.
+* SCIP - Branch and Bound(core), cutting plane methods, primal heuristics, Constraint propagation, conflict analysis 
      
 ### Временная и пространственная сложность алгоритма
 ДОРАБОТАТЬ!!!
 
 ## Функции
-Расписать вызов функций!
+* ReadSource - чтение эксель-датафрейма
+* calcCross - нахождение временного интервала между двумя вершинами
+* calcRowOverlap - преображение двух временных интервалов в часы
+* removeSameElemtPairs - удаление дубликатов
+* getAprovePairs - получение пар элементов из списка
+* merge_lists - функция для преобразования найденых ребер в группы
 
 ## LP solvers benchmark
-n = 30
+n(количество вершин) = 30
 
 <p>
 gurobi trial ограничение сработало на n=30
