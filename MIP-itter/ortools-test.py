@@ -7,8 +7,8 @@ import time
 # print(multiprocessing.cpu_count())
 
 # start = time.time()
-n_rows = 10
-df = ReadSource(n_rows, 'data/shipsData200.xlsx')
+n_rows = 80
+df = ReadSource(n_rows, '../data/shipsData200.xlsx')
 ships = [[[i[0], i[1]], calcRowOverlap(i[0], i[1], df)] for i in getAprovePairs(df.index)]
 
 start = time.time()
@@ -53,7 +53,11 @@ while len(nodes) > 0:
     for (i, j), c in connections.items():
         solver.Add(c <= x[i])
         solver.Add(c <= x[j])
-
+    # write model
+    if len(nodes) == n_rows:
+        with open("test.mps", "w") as out_f:
+            mps_text = solver.ExportModelAsMpsFormat(fixed_format=False, obfuscated=False)
+            out_f.write(mps_text)
     # Solve the problem
     print('Solve the problem')
     status = solver.Solve()
@@ -66,6 +70,7 @@ while len(nodes) > 0:
         print('Group weight:', group_weight)
         all_groups.append(group)
         all_weights.append(group_weight)
+        print('Problem solved in %f milliseconds' % solver.wall_time())
         # Remove the nodes that were included in the group
         nodes = [node for node in nodes if node not in group]
     else:
@@ -76,6 +81,8 @@ end = time.time()
 print('\nThe program took {:.2f} s to compute.'.format(end - start))
 for i in range(len(all_groups)):
     print(f'group {i+1} - {all_groups[i]} | weight - {all_weights[i]}')
+
+
 # print('All groups:', all_groups)
 # print('All weights:', all_weights)
 
