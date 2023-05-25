@@ -1,9 +1,13 @@
 import time
 
 from search import *
+import cProfile as profile
+import pstats
 
 if __name__ == '__main__':
-    _nrows = 30
+    prof = profile.Profile()
+    prof.enable()
+    _nrows = 80
     _df = ReadSource(_nrows, 'data/shipsData200.xlsx')
 
     print(_df.head())
@@ -19,3 +23,9 @@ if __name__ == '__main__':
     print(allBins)
     end = time.time()
     print('\nThe program took {:.2f} s to compute. '.format(end - start))
+    prof.disable()
+    stats = pstats.Stats(prof).strip_dirs().sort_stats("cumtime")
+    stats1 = pstats.Stats(prof).strip_dirs().sort_stats("time")
+    stats.sort_stats('cumulative').print_stats(10)
+    stats1.sort_stats('tottime').print_stats(10)
+
