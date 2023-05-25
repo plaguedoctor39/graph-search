@@ -26,3 +26,12 @@ $$c_{ij} \leq x_j \quad \forall (i, j) \in \text{{combinations(nodes, 2)}}$$
 
 
 где $N$ - это количество оставшихся элементов.
+
+## Benchmarks
+
+| n  | Time   |
+|-----|--------|
+| 10  | 0.03 s |
+| 30  | 0.26 s |
+| 80  | 9.22 s |
+| 200 | 400 s  |
