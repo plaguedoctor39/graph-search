@@ -29,9 +29,29 @@ $$c_{ij} \leq x_j \quad \forall (i, j) \in \text{{combinations(nodes, 2)}}$$
 
 ## Benchmarks
 
+* Solver = CP-SAT
+
 | n  | Time   |
 |-----|--------|
 | 10  | 0.03 s |
 | 30  | 0.26 s |
-| 80  | 9.22 s |
+| 80  | 6 s    |
 | 200 | 400 s  |
+
+* Solver SAT
+
+| n  | Time   |
+|-----|--------|
+| 10  | 0.04 s |
+| 30  | 0.27 s |
+| 80  | 6 s    |
+| 200 | 602.73 s  |
+
+* Solver SCIP
+
+| n  | Time    |
+|-----|---------|
+| 10  | 0.06 s  |
+| 30  | 13.39 s |
+| 80  | -       |
+| 200 | -       |
