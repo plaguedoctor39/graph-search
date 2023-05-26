@@ -6,7 +6,6 @@ import time
 #
 # print(multiprocessing.cpu_count())
 
-# start = time.time()
 n_rows = 80
 df = ReadSource(n_rows, '../data/shipsData200.xlsx')
 ships = [[[i[0], i[1]], calcRowOverlap(i[0], i[1], df)] for i in getAprovePairs(df.index)]
@@ -19,8 +18,12 @@ all_weights = []
 
 # Start with original set of nodes
 nodes = list(df.index)
+iteration = 1
 
 while len(nodes) > 0:
+    print('--------------------')
+    print(f'Iteration {iteration}')
+    iteration += 1
     # Define the problem
     print('Define the problem')
     solver = pywraplp.Solver.CreateSolver('CP-SAT')
