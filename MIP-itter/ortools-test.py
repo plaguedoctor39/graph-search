@@ -19,7 +19,9 @@ all_weights = []
 # Start with original set of nodes
 nodes = list(df.index)
 iteration = 1
-
+# test = {(1, 2): 5, (1, 3): 5, (1, 4): 3, (1, 5): 3, (1, 6): 3, (2, 3): 5,(2, 4): 1, (2, 5): 4, (2, 6): 3,
+#         (3, 4): 3, (3, 5): 5, (3, 6): 1, (4, 5): 2, (4, 6): 2, (5, 6): 2}
+# nodes = [x for x in range(1, 7)]
 while len(nodes) > 0:
     print('--------------------')
     print(f'Iteration {iteration}')
@@ -32,7 +34,8 @@ while len(nodes) > 0:
     # Create variables and weights for current nodes
     x = {node: solver.IntVar(0, 1, f'x[{node}]') for node in nodes}
     weights = {(i, j): calcRowOverlap(i, j, df) for i, j in combinations(nodes, 2)}
-
+    # print(weights)
+    # weights = test
     # Create connections for current nodes
     connections = {(i, j): solver.IntVar(0, 1, f'c({i},{j})') for i, j in combinations(nodes, 2)}
 
@@ -82,6 +85,7 @@ while len(nodes) > 0:
 
 end = time.time()
 print('\nThe program took {:.2f} s to compute.'.format(end - start))
+print(f'Maximum total weight: {sum(all_weights)} ')
 for i in range(len(all_groups)):
     print(f'group {i+1} - {all_groups[i]} | weight - {all_weights[i]}')
 
