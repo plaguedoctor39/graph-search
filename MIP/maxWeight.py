@@ -42,6 +42,19 @@ def maximize_total_weight(nodes, weights, min_group_size, max_group_size):
         objective.SetCoefficient(group_var, weight)
     objective.SetMaximization()
 
+    # Add constraints to ensure the sum of group weights is greater than 0
+    print('Add constraints to ensure the sum of group weights is greater than 0')
+    group_weights = {}
+    for group, group_var in group_vars.items():
+        weight = sum(weights.get((i, j), 0) for i, j in combinations(group, 2))
+        group_weights[group] = weight
+        solver.Add(group_var * weight >= 0)  # Constraint: group_var * weight >= 0
+
+    # Add constraint that the sum of group weights is greater than 0
+    sum_group_weights = solver.Sum(group_weights[group] * group_vars[group] for group in group_vars)
+    solver.Add(sum_group_weights >= 0)
+    solver.Add(sum_group_weights <= solver.infinity())
+
     # Solve the problem
     print('Solve the problem')
     start = time.time()
@@ -74,6 +87,7 @@ print('Find the group combination with the maximum total weight')
 best_groups, best_total_weight, solve_time = maximize_total_weight(nodes, weights, min_group_size, max_group_size)
 
 # Print the result
+print('Solution: ')
 print(f"Maximum total weight: {best_total_weight}")
 for i, group in enumerate(best_groups):
     group_weight = sum(weights[i, j] for i, j in itertools.combinations(group, 2))
