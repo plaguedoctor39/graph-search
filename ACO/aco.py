@@ -48,13 +48,12 @@ def aco(nodes, edges, n_ants, max_iterations):
 
 
 nodes = list(set([node for edge in weights.keys() for node in edge]))
-edges = weights
 
 n_ants = 10
 max_iterations = 100
 max_group_size = 5
 
-best_group, best_total_weight = aco(nodes, edges, n_ants, max_iterations)
+best_group, best_total_weight = aco(nodes, weights, n_ants, max_iterations)
 
 print(f"Best group: {best_group}")
 print(f"Best total weight: {best_total_weight}")
