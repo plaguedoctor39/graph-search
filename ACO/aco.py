@@ -28,10 +28,9 @@ class Ant:
                 current_group.append(next_node)
             self.group.append(current_group)
 
-
 def aco(nodes, edges, n_ants, max_iterations):
     best_group = None
-    best_total_weight = 0
+    best_total_weight = float('-inf')
 
     for _ in range(max_iterations):
         ants = [Ant(nodes, edges) for _ in range(n_ants)]
@@ -42,6 +41,10 @@ def aco(nodes, edges, n_ants, max_iterations):
                 group_weight = sum(edges.get((min(i, j), max(i, j)), 0) for i in group for j in group if i != j) / 2
                 total_weight += group_weight
             if total_weight > best_total_weight:
+                print('--------------------')
+                print(f'Iteration {_}')
+                print('individual - ', ant.group)
+                print('total weight of combination', total_weight)
                 best_total_weight = total_weight
                 best_group = ant.group
     return best_group, best_total_weight
