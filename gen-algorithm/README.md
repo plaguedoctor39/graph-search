@@ -18,3 +18,14 @@ Additionally, the code assumes the existence of a module called func.Auxiliary_f
 
 * ReadSource: Reads data from a source file.
 * calcRowOverlap: Calculates the overlap between rows in a dataset.
+
+## Benchmarks
+
+| n  | Time     |
+|-----|----------|
+| 10  | 0.09 s   |
+| 30  | 0.21 s  |
+| 80  | 4.87 s   |
+| 200 | 30.13 s |
+
+Time fully depends on n_individuals and max_iterations
