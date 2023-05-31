@@ -12,6 +12,7 @@
 * [Методы целочисленного программирования (MIP)](https://github.com/plaguedoctor39/grouping-pairs-of-objects/tree/main/MIP)
 * [Иттерационные методы целочисленного программирования](https://github.com/plaguedoctor39/grouping-pairs-of-objects/tree/main/MIP-itter)
 * [Муравьиный алгоритм](https://github.com/plaguedoctor39/grouping-pairs-of-objects/tree/main/ACO)
+* [Генетический алгоритм](https://github.com/plaguedoctor39/grouping-pairs-of-objects/tree/main/gen-algorithm)
 
 ## Оптмизация производительности
 
