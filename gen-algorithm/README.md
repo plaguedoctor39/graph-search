@@ -1,23 +1,23 @@
-# Genetic Algorithm for Group Combination Optimization
-This Python code implements a genetic algorithm to find the best combination of groups from a set of nodes. The goal is to maximize the total weight of the combinations while ensuring that each group has unique nodes and the total number of nodes in each group does not exceed a specified maximum group size.
+# Генетический алгоритм для оптимизации комбинаций групп
+Этот код на Python реализует генетический алгоритм для поиска лучшей комбинации групп из заданного набора узлов. Целью является максимизация общего веса комбинаций, при условии, что каждая группа содержит уникальные узлы, и общее количество узлов в каждой группе не превышает заданного максимального размера группы.
+## Особенности
+* Генерирует начальную популяцию особей, где каждая особь представляет собой комбинацию групп, покрывающих все узлы.
+* Реализует операции скрещивания и мутации для создания новых особей на основе выбранных родителей.
+* Использует функцию приспособленности для оценки общего веса каждой комбинации и выбора лучших особей для следующего поколения.
+* Поддерживает различные размеры популяции, максимальное количество итераций и максимальный размер групп для настройки алгоритма.
+* Обрабатывает отрицательные веса при вычислении общего веса.
+## Зависимости
+Для работы этого кода требуются следующие пакеты Python:
 
-## Features
-* Generates an initial population of individuals, where each individual represents a combination of groups covering all nodes.
-* Implements crossover and mutation operations to create new individuals from selected parents.
-* Uses a fitness function to evaluate the total weight of each combination and selects the best individuals for the next generation.
-* Supports different population sizes, maximum iterations, and maximum group sizes to customize the algorithm.
-* Handles negative weights in the total weight calculation.
-## Dependencies
-This code depends on the following Python packages:
 
 * random
 * time
 * itertools
 
-Additionally, the code assumes the existence of a module called func.Auxiliary_functions with the following functions:
+Кроме того, код предполагает наличие модуля с именем func.Auxiliary_functions, содержащего следующие функции:
 
-* ReadSource: Reads data from a source file.
-* calcRowOverlap: Calculates the overlap between rows in a dataset.
+* ReadSource: Читает данные из исходного файла.
+* calcRowOverlap: Вычисляет перекрытие между строками в наборе данных.
 
 ## Benchmarks
 
@@ -28,4 +28,4 @@ Additionally, the code assumes the existence of a module called func.Auxiliary_f
 | 80  | 4.87 s   |
 | 200 | 30.13 s |
 
-Time fully depends on n_individuals and max_iterations
+Время полностью зависит от количества особей (n_individuals) и максимального количества итераций (max_iterations).
