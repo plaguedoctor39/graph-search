@@ -9,11 +9,25 @@ def ReadSource(_nrows, path):
     _df.set_index('num', inplace=True)
     return _df
 
+def ReadSourceCargo(path):
+    _df = pd.read_csv(path, header=0)
+    _df.columns = _df.columns.str.strip()
+    return _df
 
 ## Auxiliary functions
 
 import itertools as it
 
+def prepareCargoData(df):
+    cargo = pd.read_csv('../data/cargo2.csv')
+    cargo.set_index('CargoID', inplace=True)
+    # cargo.columns = cargo.columns.str.strip()
+    nodes = cargo.index.tolist()
+    # print(df)
+    connectionWeights = {(row['CargoID1'], row['CargoID2']): row['ConnectionWeight'] for _, row in df.iterrows()}
+    cargoWeight = cargo['Weight'].to_dict()
+    # print(weights)
+    return nodes, connectionWeights, cargoWeight
 
 ## -------------------------------------------------------------------------------------------------------------------------------------------------
 def calcCross(b1, e1, b2, e2):
