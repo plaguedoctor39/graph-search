@@ -1,7 +1,7 @@
 CargoID1, CargoName1, CargoID2, CargoName2, ConnectionWeight, Weight1, Weight2
 1, Glass, 2, HeavyBox, 4, 20, 60
 1, Glass, 3, Paper, 7, 20, 30
-1, Glass, 4, Metal, 5, 20, 50
+1, Glass, 4, Metal, 18, 20, 50
 1, Glass, 5, Plastic, 20, 20, 30
 2, HeavyBox, 3, Paper, 4, 60, 30
 2, HeavyBox, 4, Metal, 7, 60, 50
