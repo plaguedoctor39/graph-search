@@ -3,13 +3,7 @@ import time
 
 from func.Auxiliary_functions import ReadSource, calcRowOverlap, ReadSourceCargo, prepareCargoData
 
-start = time.time()
-_nrows = 30
-# _df = ReadSource(_nrows, '../data/shipsData200.xlsx')
-_df = ReadSourceCargo('../data/cargo.csv')
-nodes, weights, cargoWeight = prepareCargoData(_df)
-# nodes = list(_df.index)
-# weights = {(i, j): calcRowOverlap(i, j, _df) for i, j in combinations(nodes, 2)}
+
 
 import random
 
@@ -26,13 +20,13 @@ class Ant:
             while self.nodes and len(current_group) < max_group_size:
                 next_node = max(self.nodes, key=lambda node: sum(
                     self.edges.get((min(n, node), max(n, node)), 0) for n in current_group))
-                # self.nodes.remove(next_node)
-                # current_group.append(next_node)
-                if check_group(current_group + [next_node]):  # Add check_group constraint for cargo.csv
-                    self.nodes.remove(next_node)
-                    current_group.append(next_node)
-                else:
-                    break
+                self.nodes.remove(next_node)
+                current_group.append(next_node)
+                # if check_group(current_group + [next_node]):  # Add check_group constraint for cargo.csv
+                #     self.nodes.remove(next_node)
+                #     current_group.append(next_node)
+                # else:
+                #     break
             self.group.append(current_group)
 
 
@@ -57,18 +51,28 @@ def aco(nodes, edges, n_ants, max_iterations):
                 best_group = ant.group
     return best_group, best_total_weight
 
-def check_group(group):
-    group_weight = sum(cargoWeight[i] for i in group)
-    if group_weight > max_group:
-        return False
-    return True
+# def check_group(group):
+#     group_weight = sum(cargoWeight[i] for i in group)
+#     if group_weight > max_group:
+#         return False
+#     return True
+
+
+start = time.time()
+_nrows = 30
+_df = ReadSource(_nrows, '../data/shipsData200.xlsx')
+# _df = ReadSourceCargo('../data/cargo.csv')
+# nodes, weights, cargoWeight = prepareCargoData(_df)
+nodes = list(_df.index)
+weights = {(i, j): calcRowOverlap(i, j, _df) for i, j in combinations(nodes, 2)}
 
 nodes = list(set([node for edge in weights.keys() for node in edge]))
 
 n_ants = 10
 max_iterations = 100
-max_group_size = 2
-max_group = 100
+max_group_size = 5
+# cargo.csv
+# max_group = 70
 
 best_group, best_total_weight = aco(nodes, weights, n_ants, max_iterations)
 
