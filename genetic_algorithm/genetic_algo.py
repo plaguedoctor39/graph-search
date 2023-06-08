@@ -99,22 +99,24 @@ def genetic_algorithm(nodes, edges, n_individuals, max_iterations, max_group_siz
     return best_individual, best_total_weight
 
 
-if __name__ == '__main__':
+n_individuals = 100
+max_iterations = 1000
+max_group_size = 5
+
+
+def mainGen(n_rows, path):
     start = time.time()
 
-    _nrows = 30
-    _df = ReadSource(_nrows, '../data/shipsData200.xlsx')
+    _nrows = n_rows
+    _df = ReadSource(_nrows, path)
     nodes = list(_df.index)
     weights = {(i, j): calcRowOverlap(i, j, _df) for i, j in combinations(nodes, 2)}
 
-    n_individuals = 100
-    max_iterations = 1000
-    max_group_size = 5
-
     best_individual, best_total_weight = genetic_algorithm(nodes, weights, n_individuals, max_iterations,
                                                            max_group_size)
-    print(f"Best group combination: {best_individual}")
-    print(f"Best total weight: {best_total_weight}")
+    # print(f"Best group combination: {best_individual}")
+    # print(f"Best total weight: {best_total_weight}")
 
     end = time.time()
-    print("\nOverall program time is {:.2f} s".format(end - start))
+    # print("\nOverall program time is {:.2f} s".format(end - start))
+    return {'Objective': best_total_weight, 'Groups': best_individual, 'Time': '{:.2f} s'.format(end - start)}

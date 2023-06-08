@@ -1,14 +1,14 @@
 import time
 
-from search import *
+from graph.search import *
 import cProfile as profile
 import pstats
 
-if __name__ == '__main__':
+def mainGraf(n_rows, path):
     prof = profile.Profile()
     prof.enable()
-    _nrows = 80
-    _df = ReadSource(_nrows, 'data/shipsData200.xlsx')
+    _nrows = n_rows
+    _df = ReadSource(_nrows, path)
 
     print(_df.head())
 
@@ -20,12 +20,13 @@ if __name__ == '__main__':
     maxK = 5
     start = time.time()
     allBins = runShipsAllocation(g, maxK + 1, shipsQ, _df)
-    print(allBins)
+    # print(allBins)
     end = time.time()
-    print('\nThe program took {:.2f} s to compute. '.format(end - start))
+    # print('\nThe program took {:.2f} s to compute. '.format(end - start))
     prof.disable()
     stats = pstats.Stats(prof).strip_dirs().sort_stats("cumtime")
     stats1 = pstats.Stats(prof).strip_dirs().sort_stats("time")
     stats.sort_stats('cumulative').print_stats(10)
     stats1.sort_stats('tottime').print_stats(10)
+    return {'Objective': sum(allBins['sumEdgeWeigts']), 'Groups': list(allBins['shipNums']), 'Time': '{:.2f} s'.format(end - start)}
 

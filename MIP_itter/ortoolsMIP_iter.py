@@ -86,10 +86,11 @@ def mainMIP_iter(n_rows, path):
             break
 
     end = time.time()
-    print('\nThe program took {:.2f} s to compute.'.format(end - start))
-    print(f'Maximum total weight: {sum(all_weights)} ')
-    for i in range(len(all_groups)):
-        print(f'group {i + 1} - {all_groups[i]} | weight - {all_weights[i]}')
+    # print('\nThe program took {:.2f} s to compute.'.format(end - start))
+    # print(f'Maximum total weight: {sum(all_weights)} ')
+    # for i in range(len(all_groups)):
+    #     print(f'group {i + 1} - {all_groups[i]} | weight - {all_weights[i]}')
+    return {'Objective': sum(all_weights), 'Groups': all_groups, 'Time': '{:.2f} s'.format(end - start)}
 
 # print('All groups:', all_groups)
 # print('All weights:', all_weights)

@@ -57,27 +57,28 @@ def aco(nodes, edges, n_ants, max_iterations):
 #         return False
 #     return True
 
-
-start = time.time()
-_nrows = 30
-_df = ReadSource(_nrows, '../data/shipsData200.xlsx')
-# _df = ReadSourceCargo('../data/cargo.csv')
-# nodes, weights, cargoWeight = prepareCargoData(_df)
-nodes = list(_df.index)
-weights = {(i, j): calcRowOverlap(i, j, _df) for i, j in combinations(nodes, 2)}
-
-nodes = list(set([node for edge in weights.keys() for node in edge]))
-
-n_ants = 10
-max_iterations = 100
 max_group_size = 5
-# cargo.csv
-# max_group = 70
+def mainACO(n_rows, path):
+    start = time.time()
+    _nrows = n_rows
+    _df = ReadSource(_nrows, path)
+    # _df = ReadSourceCargo('../data/cargo.csv')
+    # nodes, weights, cargoWeight = prepareCargoData(_df)
+    nodes = list(_df.index)
+    weights = {(i, j): calcRowOverlap(i, j, _df) for i, j in combinations(nodes, 2)}
 
-best_group, best_total_weight = aco(nodes, weights, n_ants, max_iterations)
+    nodes = list(set([node for edge in weights.keys() for node in edge]))
 
-print(f"Best group: {best_group}")
-print(f"Best total weight: {best_total_weight}")
+    n_ants = 10
+    max_iterations = 100
+    # cargo.csv
+    # max_group = 70
 
-end = time.time()
-print("\nOverall program time is {:.2f} s".format(end - start))
+    best_group, best_total_weight = aco(nodes, weights, n_ants, max_iterations)
+
+    # print(f"Best group: {best_group}")
+    # print(f"Best total weight: {best_total_weight}")
+
+    end = time.time()
+    # print("\nOverall program time is {:.2f} s".format(end - start))
+    return {'Objective': best_total_weight, 'Groups': best_group, 'Time': '{:.2f} s'.format(end - start)}
