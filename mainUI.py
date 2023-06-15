@@ -6,7 +6,7 @@ from ACO.aco import mainACO
 
 params = {
     'data': 'data/shipsData200.xlsx',
-    'n_rows': 30,
+    'n_rows': 200,
 }
 
 
@@ -19,10 +19,14 @@ def useGen(n_rows, path):
 
 
 def useGraph(n_rows, path):
+    if n_rows >= 150:
+        return {'Objective': 0, 'Groups': [], 'Time': 'Too long'}
     return mainGraf(n_rows, path)
 
 
 def useMIP(n_rows, path):
+    if n_rows >= 80:
+        return {'Objective': 0, 'Groups': [], 'Time': 'Too long'}
     return mainPulp(n_rows, path)
 
 
